@@ -7,7 +7,7 @@
 </h1>
 </head>
 
-<div id="chart"></div>
+<div id="heatmap", style="position: fixed; left: 700px; top: 200px"></div>
 
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -15,12 +15,14 @@
 <script>
 
 // set the dimensions and margins of the graph
-var margin = {top: 100, right: 30, bottom: 30, left: 100},
+var margin = {top: 100, right: 100, bottom: 100, left: 100},
     width = 1000 - margin.left - margin.right,
     height = 1000 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
-var svg = d3.select("#chart")
+var svg = d3.select("#heatmap")
+.style("width", width + margin.left + margin.right + "px")
+.style("height", height + margin.top + margin.bottom + "px")
 .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -28,7 +30,7 @@ var svg = d3.select("#chart")
     .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("/data/commonWordsCount.csv", function(data) {
+d3.csv("/data/commonWordsFinal.csv", function(data) {
 
 // Labels of row and columns
         var myGroups = d3.map(data, function(d){return d.Alias1;}).keys()
@@ -42,7 +44,7 @@ d3.csv("/data/commonWordsCount.csv", function(data) {
         svg.append("g")
         .call(d3.axisTop(x).tickSize(0))
         .selectAll("text")
-        .attr("transform", "rotate(-65)")
+        .attr("transform", "translate(5 -3) rotate(-90)")
         .attr("text-anchor", "start");
 
         // Build X scales and axis:
@@ -59,17 +61,95 @@ d3.csv("/data/commonWordsCount.csv", function(data) {
         .interpolator(d3.interpolateYlOrRd) // Use the Blues color scheme
         .domain([0, d3.max(data, function(d) { return d.commonWordsCount })]);
 
-    svg.selectAll()
-      .data(data, function(d) {return d.Alias1+':'+d.Alias2;})
-      .enter()
-      .append("rect")
-      .attr("x", function(d) { return x(d.Alias1) })
-      .attr("y", function(d) { return y(d.Alias2) })
-      .attr("width", x.bandwidth() )
-      .attr("height", y.bandwidth() )
-      .style("fill", function(d) { return myColor(d.commonWordsCount)} )
-      .style("opacity", 0.85);
+    var tooltip = d3.select("#heatmap")
+        .append("div")
+        .style("opacity", 0)
+        .style("position", "absolute")
+        .attr("class", "tooltip")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "5px")
+    
+    var highlight = d3.select("#heatmap")
+        .append("div")
+        .style("opacity", 0)
+        .style("position", "fixed")
+        .attr("class", "highlight")
 
+    
+    var mouseover = function(d) {
+        tooltip
+            .style("opacity", 1)
+        d3.select(this)
+            .style("stroke", "black")
+            .style("opacity", 1)
+    }
+
+    var mousemove = function(d) {
+        tooltip
+            .html(d.commonWordsCount + " common words" + 
+                "<br>" + d.commonWords)
+            .style("left", (d3.mouse(this)[0] + 120) + "px")
+            .style("top", (d3.mouse(this)[1] + 120) + "px")
+            
+    }
+
+    var mouseleave = function(d) {
+        tooltip
+            .style("opacity", 0)
+        d3.select(this)
+            .style("stroke", "none")
+            .style("opacity", 0.8)
+    }
+
+    const flag = [0, 0, 0, 0, 0]
+
+    var legendclick = function(d, i) {
+        if (flag[i] == 0) {
+            flag[i] = 1
+            d3.select(this).attr("opacity", 0.5)
+        } else {
+            flag[i] = 0
+            d3.select(this).attr("opacity", 1)
+        }
+        console.log(flag)
+    }
+
+    svg.selectAll()
+        .data(data, function(d) {return d.Alias1+':'+d.Alias2;})
+        .enter()
+        .append("rect")
+            .attr("x", function(d) { return x(d.Alias1) })
+            .attr("y", function(d) { return y(d.Alias2) })
+            .attr("width", x.bandwidth() )
+            .attr("height", y.bandwidth() )
+            .attr("count", function(d) { return d.commonWordsCount })
+            .style("fill", function(d) { return myColor(d.commonWordsCount)} )
+            .style("opacity", 0.85)
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave)
+    
+    var legend = svg.selectAll(".legend")
+        .data(myColor.ticks(d3.max(data, function(d) { return d.commonWordsCount })).slice(0))
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(" + (width+5) + "," + (i * height/10) + ")"; });
+
+    legend.append("rect")
+        .attr("width", 50)
+        .attr("height", height/10)
+        .style("fill", myColor)
+        .on("click", legendclick);
+
+    legend.append("text")
+        .attr("x", 24)
+        .attr("y", height/10/2)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", "middle")
+        .text(function(d) { return d; });
 });
 
 </script>
