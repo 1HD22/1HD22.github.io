@@ -7,25 +7,22 @@
 </h1>
 </head>
 
-<div id="heatmap", style="position: relative; left: 60%"></div>
-<div id="radar", style="position: absolute; top: 300px ;left: 10%"> </div>  
+<div id="heatmap", style="position: absolute; left: 50%; top: 10%" ></div>
+<div id="radar", style="position: absolute; left: 15%; top: 15%"> </div>  
 
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
 
 <script>
 
-function angleToCoordinate(angle, value){
-    var x = Math.cos(angle) * radialScale(value);
-    var y = Math.sin(angle) * radialScale(value);
-    return {"x": width / 2 + x, "y": height / 2 - y};
-}
 // set the dimensions and margins of the graph
 var margin = {top: 100, right: 100, bottom: 100, left: 100},
+    margin2 = {top: 50, right:50, bottom: 50, left: 100},
     width = 1000 - margin.left - margin.right,
     height = 1000 - margin.top - margin.bottom,
-    width2 = 600,
-    height2 = 600;
+    width2 = 900 - margin.left - margin.right,
+    height2 = 900 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#heatmap")
@@ -39,11 +36,13 @@ var svg = d3.select("#heatmap")
                 "translate(" + margin.left + "," + margin.top + ")");
 
 var svg2 = d3.select("#radar")
-.style("width", width2 + "px")
-.style("height", height2 + "px")
+.style("width", width2 + margin2.left + margin2.right + "px")
+.style("height", height2 + margin2.top + margin2.bottom + "px")
+.attr("transform", "translate(" + 0 + "," + margin2.top / 2 + ")")
 .append("svg")
     .attr("width", width2)
     .attr("height", height2)
+    .attr("transform", "translate(" + 0 + "," + margin2.top + ")");
 
 d3.csv("/data/commonWordsFinal.csv", function(data) {
 
@@ -136,7 +135,7 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
         
         d3.selectAll(".tick")
             .filter(function() {return this.getAttribute("valx") == val1 })
-                .attr("active", function() { console.log(this); this.getAttribute("flag") == 0 ? 1 : 0 })
+                .attr("active", function() {this.getAttribute("flag") == 0 ? 1 : 0 })
                 .selectAll("text")
                     .attr("font-weight", function() {return this.getAttribute("font-weight") == "normal" ? "bold" : "normal" })
         
@@ -206,9 +205,14 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
 
 });
 
-d3.json("/data/Output.json", function(data) {
+d3.csv("/data/Output.csv", function(data) {
 
-    var features = data;
+    var temp = d3.group(data, d => d.ALIAS)
+
+    var names = d3.map(temp, function(d) { console.log(d); return d[0]; });
+    var features = d3.map(temp.get("ramranch"), function(d) { return d.Skill; });
+
+    console.log(temp);
 
     var radialScale = d3.scaleLinear()
         .domain([0, 100])
@@ -234,19 +238,74 @@ d3.json("/data/Output.json", function(data) {
         .attr("x", width2 / 2 + 5)
         .attr("y", d => height2 / 2 - radialScale(d))
         .text(d => d.toString());
-    
-    console.log(data);
+
+    function angleToCoordinate(angle, value){
+        var x = Math.cos(angle) * radialScale(value);
+        var y = Math.sin(angle) * radialScale(value);
+        return {"x": width2 / 2 + x, "y": height2 / 2 - y};
+    }
 
     var featureData = features.map((f, i) => {
         var angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
         return {
             "name": f,
             "angle": angle,
-            "line_coord": angleToCoordinate(angle, 10),
-            "label_coord": angleToCoordinate(angle, 10.5)
+            "line_coord": angleToCoordinate(angle, 100),
+            "label_coord": angleToCoordinate(angle, 110)
         };
         
     });
+
+    svg2.selectAll("line")
+        .data(featureData)
+        .enter()
+        .append("line")
+            .attr("x1", width2 / 2)
+            .attr("y1", height2 / 2)
+            .attr("x2", d => d.line_coord.x)
+            .attr("y2", d => d.line_coord.y)
+            .attr("stroke", "black");
+    
+    svg2.selectAll(".axislabel")
+        .data(featureData)
+        .enter()
+        .append("text")
+            .attr("x", d => d.label_coord.x)
+            .attr("y", d => d.label_coord.y)
+            .text(d => d.name);
+
+    var line = d3.line()
+        .x(function(d) { return d.x; }) 
+        .y(function(d) { return d.y; });
+    
+    var colors = d3.scaleOrdinal()
+                    .domain(names)
+                    .range(["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00"]);
+
+    function getPathCoordinates(data_point){
+        let coordinates = [];
+        for (var i = 0; i < features.length; i++){
+            let ft_name = features[i];
+            let angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+
+            coordinates.push(angleToCoordinate(angle, data_point[ft_name]));
+        }
+        return coordinates;
+    }
+
+        svg2.selectAll("path")
+        .data(data)
+        .enter()
+        .append("path")
+        .datum(function(d) {console.log(key); return getPathCoordinates(d); })
+            .attr("d", d => line(d))
+            .attr("stroke-width", 3)
+            .attr("stroke", (d, i) => colors(d.ALIAS))
+            .attr("fill", (d, i) => colors(d.ALIAS))
+            .attr("stroke-opacity", 1)
+            .attr("opacity", 0.5)
+    
+        
 });
 
 

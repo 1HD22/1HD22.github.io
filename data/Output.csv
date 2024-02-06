@@ -1,0 +1,517 @@
+ALIAS,Skill,Value
+ramranch,viz,3.0
+ramranch,stats,2.0
+ramranch,math,3.0
+ramranch,art,10.0
+ramranch,ui,8.0
+ramranch,code,5.0
+ramranch,graph,5.0
+ramranch,hci,6.0
+ramranch,eval,4.0
+ramranch,comm,1.0
+ramranch,collab,1.0
+ramranch,GIT,5.0
+Caterpillar Fungus,viz,3.0
+Caterpillar Fungus,stats,2.0
+Caterpillar Fungus,math,2.0
+Caterpillar Fungus,art,2.0
+Caterpillar Fungus,ui,8.0
+Caterpillar Fungus,code,4.0
+Caterpillar Fungus,graph,3.0
+Caterpillar Fungus,hci,4.0
+Caterpillar Fungus,eval,3.0
+Caterpillar Fungus,comm,6.0
+Caterpillar Fungus,collab,8.0
+Caterpillar Fungus,GIT,8.0
+tjsol,viz,5.0
+tjsol,stats,3.0
+tjsol,math,3.0
+tjsol,art,8.0
+tjsol,ui,9.0
+tjsol,code,7.0
+tjsol,graph,2.0
+tjsol,hci,3.0
+tjsol,eval,6.0
+tjsol,comm,4.0
+tjsol,collab,6.0
+tjsol,GIT,10.0
+Rookie9,viz,5.0
+Rookie9,stats,5.0
+Rookie9,math,6.0
+Rookie9,art,4.0
+Rookie9,ui,6.0
+Rookie9,code,5.0
+Rookie9,graph,4.0
+Rookie9,hci,5.0
+Rookie9,eval,5.0
+Rookie9,comm,5.0
+Rookie9,collab,7.0
+Rookie9,GIT,4.0
+matcha,viz,3.0
+matcha,stats,3.0
+matcha,math,6.0
+matcha,art,5.0
+matcha,ui,5.0
+matcha,code,3.0
+matcha,graph,2.0
+matcha,hci,3.0
+matcha,eval,3.0
+matcha,comm,8.0
+matcha,collab,8.0
+matcha,GIT,3.0
+Flower,viz,3.0
+Flower,stats,3.0
+Flower,math,3.0
+Flower,art,8.0
+Flower,ui,8.0
+Flower,code,5.0
+Flower,graph,1.0
+Flower,hci,3.0
+Flower,eval,10.0
+Flower,comm,10.0
+Flower,collab,10.0
+Flower,GIT,8.0
+kapybara,viz,4.0
+kapybara,stats,3.0
+kapybara,math,7.0
+kapybara,art,4.0
+kapybara,ui,8.0
+kapybara,code,7.0
+kapybara,graph,4.0
+kapybara,hci,6.0
+kapybara,eval,6.0
+kapybara,comm,9.0
+kapybara,collab,8.0
+kapybara,GIT,7.0
+Bebocchia ,viz,8.0
+Bebocchia ,stats,6.0
+Bebocchia ,math,8.0
+Bebocchia ,art,1.0
+Bebocchia ,ui,5.0
+Bebocchia ,code,5.0
+Bebocchia ,graph,7.0
+Bebocchia ,hci,5.0
+Bebocchia ,eval,5.0
+Bebocchia ,comm,9.0
+Bebocchia ,collab,9.0
+Bebocchia ,GIT,5.0
+stellarise,viz,6.0
+stellarise,stats,6.0
+stellarise,math,4.0
+stellarise,art,6.0
+stellarise,ui,8.0
+stellarise,code,8.0
+stellarise,graph,8.0
+stellarise,hci,7.0
+stellarise,eval,5.0
+stellarise,comm,8.0
+stellarise,collab,8.0
+stellarise,GIT,7.0
+Kakka,viz,1.0
+Kakka,stats,3.0
+Kakka,math,5.0
+Kakka,art,1.0
+Kakka,ui,8.0
+Kakka,code,8.0
+Kakka,graph,3.0
+Kakka,hci,5.0
+Kakka,eval,4.0
+Kakka,comm,9.0
+Kakka,collab,9.0
+Kakka,GIT,9.0
+Beowulf,viz,6.0
+Beowulf,stats,3.0
+Beowulf,math,3.0
+Beowulf,art,9.0
+Beowulf,ui,8.0
+Beowulf,code,8.0
+Beowulf,graph,7.0
+Beowulf,hci,9.0
+Beowulf,eval,6.0
+Beowulf,comm,9.0
+Beowulf,collab,10.0
+Beowulf,GIT,7.0
+BirdMaster,viz,4.0
+BirdMaster,stats,6.0
+BirdMaster,math,6.0
+BirdMaster,art,3.0
+BirdMaster,ui,7.0
+BirdMaster,code,6.0
+BirdMaster,graph,3.0
+BirdMaster,hci,7.0
+BirdMaster,eval,7.0
+BirdMaster,comm,7.0
+BirdMaster,collab,7.0
+BirdMaster,GIT,6.0
+SargeSmoke,viz,7.0
+SargeSmoke,stats,5.0
+SargeSmoke,math,5.0
+SargeSmoke,art,5.0
+SargeSmoke,ui,6.0
+SargeSmoke,code,6.0
+SargeSmoke,graph,1.0
+SargeSmoke,hci,3.0
+SargeSmoke,eval,3.0
+SargeSmoke,comm,7.0
+SargeSmoke,collab,7.0
+SargeSmoke,GIT,7.0
+Weissach,viz,3.0
+Weissach,stats,3.0
+Weissach,math,6.0
+Weissach,art,4.0
+Weissach,ui,6.0
+Weissach,code,4.0
+Weissach,graph,1.0
+Weissach,hci,1.0
+Weissach,eval,1.0
+Weissach,comm,8.0
+Weissach,collab,7.0
+Weissach,GIT,2.0
+Croco,viz,6.0
+Croco,stats,6.0
+Croco,math,6.0
+Croco,art,7.0
+Croco,ui,2.0
+Croco,code,2.0
+Croco,graph,8.0
+Croco,hci,2.0
+Croco,eval,2.0
+Croco,comm,7.0
+Croco,collab,8.0
+Croco,GIT,5.0
+w,viz,6.0
+w,stats,6.0
+w,math,5.0
+w,art,2.0
+w,ui,7.0
+w,code,6.0
+w,graph,2.0
+w,hci,3.0
+w,eval,3.0
+w,comm,6.0
+w,collab,6.0
+w,GIT,7.0
+kattmat,viz,4.0
+kattmat,stats,3.0
+kattmat,math,3.0
+kattmat,art,10.0
+kattmat,ui,8.0
+kattmat,code,5.0
+kattmat,graph,1.0
+kattmat,hci,8.0
+kattmat,eval,8.0
+kattmat,comm,8.0
+kattmat,collab,8.0
+kattmat,GIT,4.0
+tofu,viz,3.0
+tofu,stats,2.0
+tofu,math,5.0
+tofu,art,7.0
+tofu,ui,8.0
+tofu,code,7.0
+tofu,graph,4.0
+tofu,hci,7.0
+tofu,eval,8.0
+tofu,comm,9.0
+tofu,collab,9.0
+tofu,GIT,7.0
+gallopinto,viz,3.0
+gallopinto,stats,5.0
+gallopinto,math,5.0
+gallopinto,art,3.0
+gallopinto,ui,6.0
+gallopinto,code,5.0
+gallopinto,graph,4.0
+gallopinto,hci,7.0
+gallopinto,eval,4.0
+gallopinto,comm,10.0
+gallopinto,collab,10.0
+gallopinto,GIT,8.0
+numpy,viz,5.0
+numpy,stats,9.0
+numpy,math,6.0
+numpy,art,7.0
+numpy,ui,8.0
+numpy,code,7.0
+numpy,graph,1.0
+numpy,hci,1.0
+numpy,eval,2.0
+numpy,comm,7.0
+numpy,collab,7.0
+numpy,GIT,10.0
+Kanelbulle,viz,3.0
+Kanelbulle,stats,5.0
+Kanelbulle,math,9.0
+Kanelbulle,art,7.0
+Kanelbulle,ui,7.0
+Kanelbulle,code,3.0
+Kanelbulle,graph,2.0
+Kanelbulle,hci,4.0
+Kanelbulle,eval,2.0
+Kanelbulle,comm,8.0
+Kanelbulle,collab,2.0
+Kanelbulle,GIT,2.0
+sackboy,viz,1.0
+sackboy,stats,1.0
+sackboy,math,6.0
+sackboy,art,3.0
+sackboy,ui,8.0
+sackboy,code,3.0
+sackboy,graph,3.0
+sackboy,hci,2.0
+sackboy,eval,1.0
+sackboy,comm,8.0
+sackboy,collab,9.0
+sackboy,GIT,6.0
+blackcat,viz,6.0
+blackcat,stats,5.0
+blackcat,math,5.0
+blackcat,art,6.0
+blackcat,ui,4.0
+blackcat,code,3.0
+blackcat,graph,4.0
+blackcat,hci,1.0
+blackcat,eval,1.0
+blackcat,comm,7.0
+blackcat,collab,6.0
+blackcat,GIT,2.0
+Shadowheart,viz,2.0
+Shadowheart,stats,1.0
+Shadowheart,math,3.0
+Shadowheart,art,6.0
+Shadowheart,ui,8.0
+Shadowheart,code,5.0
+Shadowheart,graph,1.0
+Shadowheart,hci,5.0
+Shadowheart,eval,5.0
+Shadowheart,comm,9.0
+Shadowheart,collab,9.0
+Shadowheart,GIT,7.0
+tpain,viz,3.0
+tpain,stats,5.0
+tpain,math,4.0
+tpain,art,3.0
+tpain,ui,7.0
+tpain,code,6.0
+tpain,graph,6.0
+tpain,hci,5.0
+tpain,eval,2.0
+tpain,comm,6.0
+tpain,collab,7.0
+tpain,GIT,2.0
+ghostcat,viz,6.0
+ghostcat,stats,5.0
+ghostcat,math,5.0
+ghostcat,art,10.0
+ghostcat,ui,10.0
+ghostcat,code,8.0
+ghostcat,graph,5.0
+ghostcat,hci,10.0
+ghostcat,eval,5.0
+ghostcat,comm,6.0
+ghostcat,collab,3.0
+ghostcat,GIT,5.0
+cyan,viz,1.0
+cyan,stats,8.0
+cyan,math,5.0
+cyan,art,5.0
+cyan,ui,7.0
+cyan,code,4.0
+cyan,graph,4.0
+cyan,hci,4.0
+cyan,eval,3.0
+cyan,comm,10.0
+cyan,collab,10.0
+cyan,GIT,3.0
+BlenderBender,viz,6.0
+BlenderBender,stats,2.0
+BlenderBender,math,3.0
+BlenderBender,art,6.0
+BlenderBender,ui,8.0
+BlenderBender,code,8.0
+BlenderBender,graph,3.0
+BlenderBender,hci,8.0
+BlenderBender,eval,5.0
+BlenderBender,comm,9.0
+BlenderBender,collab,10.0
+BlenderBender,GIT,8.0
+Windy65,viz,2.0
+Windy65,stats,8.0
+Windy65,math,7.0
+Windy65,art,4.0
+Windy65,ui,5.0
+Windy65,code,4.0
+Windy65,graph,3.0
+Windy65,hci,5.0
+Windy65,eval,6.0
+Windy65,comm,8.0
+Windy65,collab,8.0
+Windy65,GIT,7.0
+"Bond, Jan Bond",viz,3.0
+"Bond, Jan Bond",stats,3.0
+"Bond, Jan Bond",math,6.0
+"Bond, Jan Bond",art,8.0
+"Bond, Jan Bond",ui,6.0
+"Bond, Jan Bond",code,5.0
+"Bond, Jan Bond",graph,7.0
+"Bond, Jan Bond",hci,3.0
+"Bond, Jan Bond",eval,2.0
+"Bond, Jan Bond",comm,6.0
+"Bond, Jan Bond",collab,5.0
+"Bond, Jan Bond",GIT,7.0
+MGH552200,viz,7.0
+MGH552200,stats,5.0
+MGH552200,math,6.0
+MGH552200,art,4.0
+MGH552200,ui,8.0
+MGH552200,code,8.0
+MGH552200,graph,6.0
+MGH552200,hci,8.0
+MGH552200,eval,4.0
+MGH552200,comm,7.0
+MGH552200,collab,4.0
+MGH552200,GIT,8.0
+John Wick,viz,3.0
+John Wick,stats,3.0
+John Wick,math,4.0
+John Wick,art,5.0
+John Wick,ui,6.0
+John Wick,code,5.0
+John Wick,graph,4.0
+John Wick,hci,3.0
+John Wick,eval,3.0
+John Wick,comm,4.0
+John Wick,collab,5.0
+John Wick,GIT,5.0
+YellowShyGuy,viz,3.0
+YellowShyGuy,stats,7.0
+YellowShyGuy,math,6.0
+YellowShyGuy,art,4.0
+YellowShyGuy,ui,9.0
+YellowShyGuy,code,8.0
+YellowShyGuy,graph,4.0
+YellowShyGuy,hci,7.0
+YellowShyGuy,eval,4.0
+YellowShyGuy,comm,8.0
+YellowShyGuy,collab,7.0
+YellowShyGuy,GIT,7.0
+Sam Vimes,viz,3.0
+Sam Vimes,stats,3.0
+Sam Vimes,math,4.0
+Sam Vimes,art,2.0
+Sam Vimes,ui,6.0
+Sam Vimes,code,3.0
+Sam Vimes,graph,1.0
+Sam Vimes,hci,3.0
+Sam Vimes,eval,2.0
+Sam Vimes,comm,3.0
+Sam Vimes,collab,5.0
+Sam Vimes,GIT,7.0
+Frieren,viz,7.0
+Frieren,stats,6.0
+Frieren,math,5.0
+Frieren,art,8.0
+Frieren,ui,8.0
+Frieren,code,7.0
+Frieren,graph,5.0
+Frieren,hci,5.0
+Frieren,eval,6.0
+Frieren,comm,6.0
+Frieren,collab,8.0
+Frieren,GIT,9.0
+DiscoTechLola,viz,2.0
+DiscoTechLola,stats,2.0
+DiscoTechLola,math,3.0
+DiscoTechLola,art,4.0
+DiscoTechLola,ui,3.0
+DiscoTechLola,code,3.0
+DiscoTechLola,graph,2.0
+DiscoTechLola,hci,4.0
+DiscoTechLola,eval,4.0
+DiscoTechLola,comm,10.0
+DiscoTechLola,collab,7.0
+DiscoTechLola,GIT,3.0
+Aaron,viz,6.0
+Aaron,stats,6.0
+Aaron,math,7.0
+Aaron,art,8.0
+Aaron,ui,8.0
+Aaron,code,6.0
+Aaron,graph,6.0
+Aaron,hci,7.0
+Aaron,eval,7.0
+Aaron,comm,6.0
+Aaron,collab,8.0
+Aaron,GIT,8.0
+GGer,viz,3.0
+GGer,stats,9.0
+GGer,math,5.0
+GGer,art,4.0
+GGer,ui,8.0
+GGer,code,6.0
+GGer,graph,2.0
+GGer,hci,5.0
+GGer,eval,5.0
+GGer,comm,6.0
+GGer,collab,9.0
+GGer,GIT,8.0
+Reisen,viz,3.0
+Reisen,stats,5.0
+Reisen,math,5.0
+Reisen,art,7.0
+Reisen,ui,8.0
+Reisen,code,5.0
+Reisen,graph,6.0
+Reisen,hci,3.0
+Reisen,eval,2.0
+Reisen,comm,4.0
+Reisen,collab,5.0
+Reisen,GIT,3.0
+DrPavel,viz,4.0
+DrPavel,stats,4.0
+DrPavel,math,7.0
+DrPavel,art,3.0
+DrPavel,ui,8.0
+DrPavel,code,6.0
+DrPavel,graph,5.0
+DrPavel,hci,3.0
+DrPavel,eval,5.0
+DrPavel,comm,8.0
+DrPavel,collab,9.0
+DrPavel,GIT,5.0
+SannyKuro,viz,5.0
+SannyKuro,stats,5.0
+SannyKuro,math,6.0
+SannyKuro,art,8.0
+SannyKuro,ui,9.0
+SannyKuro,code,8.0
+SannyKuro,graph,9.0
+SannyKuro,hci,8.0
+SannyKuro,eval,7.0
+SannyKuro,comm,9.0
+SannyKuro,collab,8.0
+SannyKuro,GIT,6.0
+Mintchoco,viz,5.0
+Mintchoco,stats,6.0
+Mintchoco,math,7.0
+Mintchoco,art,1.0
+Mintchoco,ui,6.0
+Mintchoco,code,7.0
+Mintchoco,graph,3.0
+Mintchoco,hci,3.0
+Mintchoco,eval,7.0
+Mintchoco,comm,8.0
+Mintchoco,collab,9.0
+Mintchoco,GIT,6.0
+Ty29,viz,6.0
+Ty29,stats,4.0
+Ty29,math,5.0
+Ty29,art,3.0
+Ty29,ui,8.0
+Ty29,code,6.0
+Ty29,graph,3.0
+Ty29,hci,3.0
+Ty29,eval,5.0
+Ty29,comm,6.0
+Ty29,collab,7.0
+Ty29,GIT,4.0
