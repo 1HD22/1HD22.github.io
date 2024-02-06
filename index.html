@@ -131,7 +131,7 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
     var mousemove = function(d) {
         tooltip
             .html("(" + d.Alias1 + ", " + d.Alias2 + ")" +
-                "<br>" + d.commonWordsCount + " common words" + 
+                "<br>" + d.commonWordsCount + " common hobbies" + 
                 "<br>" + d.commonWords)
             .style("left", (d3.mouse(this)[0] + 120) + "px")
             .style("top", (d3.mouse(this)[1] + 120) + "px")
