@@ -221,12 +221,12 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
                     .attr("count", function() {return this.getAttribute("count") - 1})
             
             rlegend.selectAll("circle")
-                .filter(function() {return this.getAttribute("count") > max})
+                .filter(function() {return this.getAttribute("count")+1 > max})
                     .attr("cy", function() {return this.getAttribute("cy") - 20})
                     .attr("count", function() {return this.getAttribute("count") - 1})
             
             rlegend.selectAll("text")
-                .filter(function() {return this.getAttribute("count") > max})
+                .filter(function() {return this.getAttribute("count")+1 > max})
                     .attr("y", function() {return this.getAttribute("y") - 20})
                     .attr("count", function() {return this.getAttribute("count") - 1})
 
