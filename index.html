@@ -7,8 +7,8 @@
 </h1>
 </head>
 
-<div id="heatmap", style="position: absolute; left: 40%"></div>
-<div id="radar", style="position: absolute; left: 5%"> </div>  
+<div id="heatmap", style="position: absolute; left: 50%"></div>
+<div id="radar", style="position: absolute; left: 2%"> </div>  
 
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -33,13 +33,31 @@ var svg = d3.select("#heatmap")
                 "translate(" + margin.left + "," + margin.top + ")");
 
 var svg2 = d3.select("#radar")
-.style("width", width2 + margin.left + margin.right + "px")
+.style("width", width2 + margin.left + 50 + "px")
 .style("height", height2 + margin.top + margin.bottom + "px")
 .append("svg")
     .attr("width", width2)
     .attr("height", height2)
     .attr("transform",
                 "translate(" + 0 + "," + margin.top + ")");
+
+var rlegend = d3.select("#radar")
+    .append("g")
+    .style("position", "absolute")
+    .attr("transform",
+                "translate(" + 0 + "," + 0 + ")")
+    .attr("class", "legend")
+    .style("width", "150px")
+    .style("height", "1000px")
+    .append("svg")
+        .attr("width", 150)
+        .attr("height", 1000)
+        .attr("transform",
+                "translate(" + 0 + "," + 0 + ")");
+
+var colors;
+var active = [];
+var count = 0;
 
 d3.csv("/data/commonWordsFinal.csv", function(data) {
 
@@ -100,10 +118,9 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
         tooltip
             .style("opacity", 1)
         
-        if (this.getAttribute("active") < 1)
-            d3.select(this)
-                .style("stroke", "black")
-                .style("opacity", 1)
+        d3.select(this)
+            .style("stroke", "black")
+            .style("opacity", 1)
     }
 
     var mousemove = function(d) {
@@ -116,32 +133,174 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
     }
 
     var mouseleave = function(d) {
+
         tooltip
             .style("opacity", 0)
         
-        if (this.getAttribute("active") < 1) {
-            d3.select(this)
-                .style("stroke", "none")
-                .style("opacity", 0.85)
-        }
+
+        d3.select(this)
+            .style("stroke", "none")
+            .style("opacity", 0.85)
     }
 
     var click = function(d) {
         var val1 = this.getAttribute("col")
         var val2 = this.getAttribute("row")
-        
-        d3.selectAll(".tick")
-            .filter(function() {return this.getAttribute("valx") == val1 })
-                .attr("active", function() { console.log(this); this.getAttribute("flag") == 0 ? 1 : 0 })
-                .selectAll("text")
-                    .attr("font-weight", function() {return this.getAttribute("font-weight") == "normal" ? "bold" : "normal" })
-        
-        d3.selectAll(".tick")
-            .filter(function() { return this.getAttribute("valy") == val2 })
-                .attr("active", function() { return this.getAttribute("active") == 0 ? 1 : 0 })
-                .selectAll("text")
-                    .attr("font-weight", function() { return this.getAttribute("font-weight") == "normal" ? "bold" : "normal" })
+        var temp1, temp2 = 9999;
+
+        if (val1 == val2) {;}
+        else if (active.includes(val1) && active.includes(val2) ){
+            active.splice(active.indexOf(val1), 1)
+            active.splice(active.indexOf(val2), 1)
+
+            if (!active.includes(val1)) {
+                d3.selectAll(".tick")
+                    .filter(function() {return this.getAttribute("valx") == val1 })
+                        .attr("active", 0)
+                        .selectAll("text")
+                            .attr("font-weight", "normal")
+                
+                svg2.selectAll("path")
+                    .filter(function() {return this.getAttribute("name") == val1})
+                        .attr("opacity", 0)
+
+                
+
+                temp1 = rlegend.selectAll("circle")
+                    .filter(function() {return this.getAttribute("name") == val1})
+                        .attr("count")
+
+                rlegend.selectAll("circle")
+                    .filter(function() {return this.getAttribute("name") == val1})
+                        .remove()
+                rlegend.selectAll("text")
+                    .filter(function() {return this.getAttribute("name") == val1})
+                        .remove()
+                
+                count -= 1
+                            
+                }
+            
+            if (!active.includes(val2)) {   
+                d3.selectAll(".tick")
+                    .filter(function() { return this.getAttribute("valy") == val2 })
+                        .attr("active", 0)
+                        .selectAll("text")
+                            .attr("font-weight", "normal")
+                        
+                svg2.selectAll("path")
+                    .filter(function() {return this.getAttribute("name") == val2})
+                        .attr("opacity", 0)
+                
+                temp2 = rlegend.selectAll("circle")
+                    .filter(function() {return this.getAttribute("name") == val1})
+                        .attr("count")
+
+                rlegend.selectAll("circle")
+                    .filter(function() {return this.getAttribute("name") == val2})
+                        .remove()
+                rlegend.selectAll("text")
+                    .filter(function() {return this.getAttribute("name") == val2})
+                        .remove()
+                
+                count -= 1
+                }
+
+            
+            var max = d3.max([temp1, temp2])
+            var min = d3.min([temp1, temp2])
+
+            rlegend.selectAll("circle")
+                .filter(function() {return this.getAttribute("count") > min})
+                    .attr("cy", function() {return this.getAttribute("cy") - 20})
+                    .attr("count", function() {return this.getAttribute("count") - 1})
+            
+            rlegend.selectAll("text")
+                .filter(function() {return this.getAttribute("count") > min})
+                    .attr("y", function() {return this.getAttribute("y") - 20})
+                    .attr("count", function() {return this.getAttribute("count") - 1})
+            
+            rlegend.selectAll("circle")
+                .filter(function() {return this.getAttribute("count") > max})
+                    .attr("cy", function() {return this.getAttribute("cy") - 20})
+                    .attr("count", function() {return this.getAttribute("count") - 1})
+            
+            rlegend.selectAll("text")
+                .filter(function() {return this.getAttribute("count") > max})
+                    .attr("y", function() {return this.getAttribute("y") - 20})
+                    .attr("count", function() {return this.getAttribute("count") - 1})
+
+
+
+        } else if (active.includes(val1)) {
+            active.push(val1)
+            active.push(val2)
+
+            d3.selectAll(".tick")
+                .filter(function() { return this.getAttribute("valy") == val2 })
+                    .attr("active", 1)
+                    .selectAll("text")
+                        .attr("font-weight", "bold")
+            
+            svg2.selectAll("path")
+                .filter(function() {return this.getAttribute("name") == val2})
+                    .attr("opacity", 1)
+
+            rlegend.append("circle").attr("cx",10).attr("cy",130 + count * 20).attr("r", 6).style("fill", colors(val2)).attr("count", count).attr("name", val2)
+            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val2).style("font-size", "15px").attr("alignment-baseline","middle").attr("name", val2)
+            count += 1
+        }
+        else if (active.includes(val2)) {
+            active.push(val2)
+            active.push(val1)
+
+            d3.selectAll(".tick")
+                .filter(function() {return this.getAttribute("valx") == val1 })
+                    .attr("active", 1)
+                    .selectAll("text")
+                        .attr("font-weight", "bold")
+            
+            svg2.selectAll("path")
+                .filter(function() {return this.getAttribute("name") == val1})
+                    .attr("opacity", 1)
+
+            rlegend.append("circle").attr("cx",10).attr("cy",130 + count * 20).attr("r", 6).style("fill", colors(val1)).attr("count", count).attr("name", val1)
+            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val1).style("font-size", "15px").attr("alignment-baseline","middle").attr("name", val1)
+            count += 1
+            
+            
+        } else {
+            active.push(val1)
+            active.push(val2)
+            d3.selectAll(".tick")
+                .filter(function() {return this.getAttribute("valx") == val1 })
+                    .attr("active", 1)
+                    .selectAll("text")
+                        .attr("font-weight", "bold")
+            
+            d3.selectAll(".tick")
+                .filter(function() { return this.getAttribute("valy") == val2 })
+                    .attr("active", 1)
+                    .selectAll("text")
+                        .attr("font-weight", "bold")
+
+            svg2.selectAll("path")
+                .filter(function() {return this.getAttribute("name") == val1 || this.getAttribute("name") == val2 })
+                    .attr("opacity", 1)
+
+            rlegend.append("circle").attr("cx",10).attr("cy",130 + count * 20).attr("r", 6).style("fill", colors(val1)).attr("count", count).attr("name", val1)
+            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val1).style("font-size", "15px").attr("alignment-baseline","middle").attr("name", val1)
+            count += 1
+
+            rlegend.append("circle").attr("cx",10).attr("cy",130 + count * 20).attr("r", 6).style("fill", colors(val2)).attr("count", count).attr("name", val2)
+            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val2).style("font-size", "15px").attr("alignment-baseline","middle").attr("name", val2)
+            count += 1
+
+        }           
+
+        console.log(active)
     }
+
 
     var legendclick = function(d, i) {
         if (this.parentNode.getAttribute("flag") == 0) {
@@ -167,7 +326,6 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
             .attr("y", function(d) { return y(d.Alias2) })
             .attr("width", x.bandwidth() )
             .attr("height", y.bandwidth() )
-            .attr("active", 0)
             .attr("col", function(d) { return d.Alias1 })
             .attr("row", function(d) { return d.Alias2 })
             .attr("count", function(d) { return d.commonWordsCount })
@@ -210,8 +368,6 @@ d3.json("/data/Output.json", function(data) {
         return {"x": width / 2 + x, "y": height / 2 - y};
     }
 
-    console.log(data)
-
     var names = d3.map(data, function(d) {return d.className}).keys()
     var features = d3.map(data[0].axes, function(d) {return d.axis}).keys();
 
@@ -251,8 +407,6 @@ d3.json("/data/Output.json", function(data) {
         
     });
 
-    console.log(featureData)
-
     function angleToCoordinate(angle, value){
         let x = Math.cos(angle) * radialScale(value);
         let y = Math.sin(angle) * radialScale(value);
@@ -281,9 +435,16 @@ d3.json("/data/Output.json", function(data) {
         .x(d => d.x)
         .y(d => d.y);
 
-    var colors = d3.scaleOrdinal()
+    colors = d3.scaleOrdinal()
         .domain(names)
-        .range(["#003f5c","#2f4b7c","#665191","#a05195","#d45087","#f95d6a","#ff7c43","#ffa600"])
+        .range(["#1b70fc", "#faff16", "#d50527", "#158940", "#f898fd", "#24c9d7", "#cb9b64", "#866888", "#22e67a", "#e509ae", "#9dabfa", "#437e8a", 
+        "#b21bff", "#ff7b91", "#94aa05", "#ac5906", "#82a68d", "#fe6616", "#7a7352", "#f9bc0f", "#b65d66", "#07a2e6", "#c091ae", "#8a91a7", "#88fc07", "#ea42fe", "#9e8010", "#10b437", 
+        "#c281fe", "#f92b75", "#07c99d", "#a946aa", "#bfd544", "#16977e", "#ff6ac8", "#a88178", "#5776a9", "#678007", "#fa9316", "#85c070", "#6aa2a9", "#989e5d", "#fe9169", "#cd714a", 
+        "#6ed014", "#c5639c", "#c23271", "#698ffc", "#678275", "#c5a121", "#a978ba", "#ee534e", "#d24506", "#59c3fa", "#ca7b0a", "#6f7385", "#9a634a", "#48aa6f", "#ad9ad0", "#d7908c", 
+        "#6a8a53", "#8c46fc", "#8f5ab8", "#fd1105", "#7ea7cf", "#d77cd1", "#a9804b", "#0688b4", "#6a9f3e", "#ee8fba", "#a67389", "#9e8cfe", "#bd443c", "#6d63ff", "#d110d5", "#798cc3", 
+        "#df5f83", "#b1b853", "#bb59d8", "#1d960c", "#867ba8", "#18acc9", "#25b3a7", "#f3db1d", "#938c6d", "#936a24", "#a964fb", "#92e460", "#a05787", "#9c87a0", "#20c773", "#8b696d", 
+        "#78762d", "#e154c6", "#40835f", "#d73656", "#1afd5c", "#c4f546", "#3d88d8", "#bd3896", "#1397a3", "#f940a5", "#66aeff", "#d097e7", "#fe6ef9", "#d86507", "#8b900a", "#d47270", 
+        "#e8ac48", "#cf7c97", "#cebb11", "#718a90", "#e78139", "#ff7463", "#bea1fd"])
 
     function getPathCoordinates(data_point){
         let coordinates = [];
@@ -292,19 +453,24 @@ d3.json("/data/Output.json", function(data) {
             let angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
             coordinates.push(angleToCoordinate(angle, data_point[i].value));
         }
+
+        coordinates.push(coordinates[0])
         return coordinates;
-    }   
+    }       
 
     svg2.selectAll("path")
         .data(data)
         .enter()
         .append("path")
+            .attr("name", function(d) {return d.className})
             .attr("d", function(d) {return line(getPathCoordinates(d.axes)) })
             .attr("stroke-width", 3)
-            .attr("stroke", (d, i) => colors(d.className))
-            .attr("fill", (d, i) => colors(d.className))
+            .attr("stroke", d => colors(d.className))
+            .attr("fill", d => colors(d.className))
             .attr("stroke-opacity", 1)
-            .attr("opacity", 0.5)
+            .attr("fill-opacity", 0.5)
+            .attr("opacity", 0)
+
 
 });
 
