@@ -2,12 +2,15 @@
 
 <head>
 <h1>
-        Hello World!
+        DH2321 Project 1: Visualize Student Group Formation 
 
 </h1>
+<h3>
+        By William Yap
+</h3>
 </head>
 
-<div id="heatmap", style="position: absolute; left: 50%"></div>
+<div id="heatmap", style="position: absolute; left: 40%"></div>
 <div id="radar", style="position: absolute; left: 2%"> </div>  
 
 <script src="https://d3js.org/d3.v4.js"></script>
@@ -15,7 +18,7 @@
 
 <script>
 // set the dimensions and margins of the graph
-var margin = {top: 100, right: 100, bottom: 100, left: 100},
+var margin = {top: 100, right: 100, bottom: 100, left: 150},
     width = 1000 - margin.left - margin.right,
     height = 1000 - margin.top - margin.bottom,
     width2 = 1000 - margin.left - margin.right,
@@ -87,7 +90,8 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
         .attr("class", "yaxis")
         .call(d3.axisLeft(y).tickSize(0))
         .selectAll("text")
-            .attr("font-weight", "normal");
+            .attr("font-weight", "normal")
+            .attr("font-size", "10px");
 
         d3.selectAll(".xaxis").selectAll(".tick")
             .attr("valx", function(d) { return this.textContent })
@@ -121,11 +125,13 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
         d3.select(this)
             .style("stroke", "black")
             .style("opacity", 1)
+
     }
 
     var mousemove = function(d) {
         tooltip
-            .html(d.commonWordsCount + " common words" + 
+            .html("(" + d.Alias1 + ", " + d.Alias2 + ")" +
+                "<br>" + d.commonWordsCount + " common words" + 
                 "<br>" + d.commonWords)
             .style("left", (d3.mouse(this)[0] + 120) + "px")
             .style("top", (d3.mouse(this)[1] + 120) + "px")
@@ -146,7 +152,7 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
     var click = function(d) {
         var val1 = this.getAttribute("col")
         var val2 = this.getAttribute("row")
-        var temp1, temp2 = 9999;
+        var temp1, temp2 = 99;
 
         if (val1 == val2) {;}
         else if (active.includes(val1) && active.includes(val2) ){
@@ -159,6 +165,7 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
                         .attr("active", 0)
                         .selectAll("text")
                             .attr("font-weight", "normal")
+                            .attr("font-size", "10px")
                 
                 svg2.selectAll("path")
                     .filter(function() {return this.getAttribute("name") == val1})
@@ -187,13 +194,14 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
                         .attr("active", 0)
                         .selectAll("text")
                             .attr("font-weight", "normal")
+                            .attr("font-size", "10px")
                         
                 svg2.selectAll("path")
                     .filter(function() {return this.getAttribute("name") == val2})
                         .attr("opacity", 0)
                 
                 temp2 = rlegend.selectAll("circle")
-                    .filter(function() {return this.getAttribute("name") == val1})
+                    .filter(function() {return this.getAttribute("name") == val2})
                         .attr("count")
 
                 rlegend.selectAll("circle")
@@ -210,6 +218,9 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
             var max = d3.max([temp1, temp2])
             var min = d3.min([temp1, temp2])
 
+            console.log(max)
+            console.log(min)
+
             rlegend.selectAll("circle")
                 .filter(function() {return this.getAttribute("count") > min})
                     .attr("cy", function() {return this.getAttribute("cy") - 20})
@@ -219,6 +230,8 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
                 .filter(function() {return this.getAttribute("count") > min})
                     .attr("y", function() {return this.getAttribute("y") - 20})
                     .attr("count", function() {return this.getAttribute("count") - 1})
+            
+            
             
             rlegend.selectAll("circle")
                 .filter(function() {return this.getAttribute("count")+1 > max})
@@ -230,8 +243,7 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
                     .attr("y", function() {return this.getAttribute("y") - 20})
                     .attr("count", function() {return this.getAttribute("count") - 1})
 
-
-
+                
         } else if (active.includes(val1)) {
             active.push(val1)
             active.push(val2)
@@ -241,13 +253,14 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
                     .attr("active", 1)
                     .selectAll("text")
                         .attr("font-weight", "bold")
+                        .attr("font-size", "15px")
             
             svg2.selectAll("path")
                 .filter(function() {return this.getAttribute("name") == val2})
                     .attr("opacity", 1)
 
             rlegend.append("circle").attr("cx",10).attr("cy",130 + count * 20).attr("r", 6).style("fill", colors(val2)).attr("count", count).attr("name", val2)
-            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val2).style("font-size", "15px").attr("alignment-baseline","middle").attr("name", val2)
+            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val2).style("font-size", "15px").attr("alignment-baseline","middle").attr("count", count).attr("name", val2)
             count += 1
         }
         else if (active.includes(val2)) {
@@ -259,13 +272,14 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
                     .attr("active", 1)
                     .selectAll("text")
                         .attr("font-weight", "bold")
+                        .attr("font-size", "15px")
             
             svg2.selectAll("path")
                 .filter(function() {return this.getAttribute("name") == val1})
                     .attr("opacity", 1)
 
             rlegend.append("circle").attr("cx",10).attr("cy",130 + count * 20).attr("r", 6).style("fill", colors(val1)).attr("count", count).attr("name", val1)
-            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val1).style("font-size", "15px").attr("alignment-baseline","middle").attr("name", val1)
+            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val1).style("font-size", "15px").attr("alignment-baseline","middle").attr("count", count).attr("name", val1)
             count += 1
             
             
@@ -277,23 +291,25 @@ d3.csv("/data/commonWordsFinal.csv", function(data) {
                     .attr("active", 1)
                     .selectAll("text")
                         .attr("font-weight", "bold")
+                        .attr("font-size", "15px")
             
             d3.selectAll(".tick")
                 .filter(function() { return this.getAttribute("valy") == val2 })
                     .attr("active", 1)
                     .selectAll("text")
                         .attr("font-weight", "bold")
+                        .attr("font-size", "15px")
 
             svg2.selectAll("path")
                 .filter(function() {return this.getAttribute("name") == val1 || this.getAttribute("name") == val2 })
                     .attr("opacity", 1)
 
             rlegend.append("circle").attr("cx",10).attr("cy",130 + count * 20).attr("r", 6).style("fill", colors(val1)).attr("count", count).attr("name", val1)
-            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val1).style("font-size", "15px").attr("alignment-baseline","middle").attr("name", val1)
+            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val1).style("font-size", "15px").attr("alignment-baseline","middle").attr("count", count).attr("name", val1)
             count += 1
 
             rlegend.append("circle").attr("cx",10).attr("cy",130 + count * 20).attr("r", 6).style("fill", colors(val2)).attr("count", count).attr("name", val2)
-            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val2).style("font-size", "15px").attr("alignment-baseline","middle").attr("name", val2)
+            rlegend.append("text").attr("x", 20).attr("y", 130 + count * 20).text(val2).style("font-size", "15px").attr("alignment-baseline","middle").attr("count", count).attr("name", val2)
             count += 1
 
         }           
